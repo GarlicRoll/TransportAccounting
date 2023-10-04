@@ -11,6 +11,7 @@ import org.springframework.stereotype.Service;
 
 import java.rmi.AlreadyBoundException;
 import java.util.List;
+import java.util.Objects;
 import java.util.Optional;
 
 @Service
@@ -47,7 +48,7 @@ public class BusServiceImpl implements BusService {
         boolean busAlreadyConnected = false;
         if (bus.getDriver() != null) {
             for (Bus value: buses) {
-                if (value.getDriver() != null && (value.getDriver().getId() == bus.getDriver().getId())) {
+                if (value.getDriver() != null && (Objects.equals(value.getDriver().getId(), bus.getDriver().getId()))) {
                     busAlreadyConnected = true;
                     break;
                 }
@@ -64,6 +65,9 @@ public class BusServiceImpl implements BusService {
 
     @Override
     public void deleteById(Integer id) {
+        if (busRepository.findById(id).isEmpty()) {
+            throw new NotFoundException("Bus not found. Id: " + id);
+        }
         Bus bus = getById(id);
         if (bus != null) {
             Driver driver = bus.getDriver();

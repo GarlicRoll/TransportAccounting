@@ -1,8 +1,6 @@
 package com.example.transport.exceptions;
 
-import java.rmi.AlreadyBoundException;
-
-public class AlreadyConnectedException extends AlreadyBoundException {
+public class AlreadyConnectedException extends RuntimeException {
     public AlreadyConnectedException() {
         super();
     }
