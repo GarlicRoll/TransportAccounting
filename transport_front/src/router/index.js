@@ -19,6 +19,12 @@ const router = new VueRouter({
             name: 'register',
             //meta: {layout: 'empty'},
             component: () => import('../components/RegistrationView.vue')
+        },
+        {
+            path: '/drivers',
+            name: 'drivers',
+            //meta: {layout: 'empty'},
+            component: () => import('../components/DriversView.vue')
         }
     ]
 })

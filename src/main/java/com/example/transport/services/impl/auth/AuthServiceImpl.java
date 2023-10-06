@@ -1,8 +1,11 @@
-package com.example.transport.services.impl;
+package com.example.transport.services.impl.auth;
 
 import com.example.transport.config.JwtService;
 import com.example.transport.models.*;
+import com.example.transport.models.auth.AuthenticationRequest;
+import com.example.transport.models.auth.AuthenticationResponse;
 import com.example.transport.repositories.UserRepository;
+import com.example.transport.services.auth.AuthService;
 import lombok.RequiredArgsConstructor;
 
 import org.springframework.security.authentication.AuthenticationManager;
@@ -12,12 +15,13 @@ import org.springframework.stereotype.Service;
 
 @Service
 @RequiredArgsConstructor
-public class AuthServiceImpl {
+public class AuthServiceImpl implements AuthService {
     private final UserRepository userRepository;
     private final PasswordEncoder passwordEncoder;
     private final JwtService jwtService;
     private final AuthenticationManager authenticationManager;
 
+    @Override
     public AuthenticationResponse register(RegisterRequest request) {
         var user = User.builder()
                 .login(request.getLogin())
@@ -31,6 +35,7 @@ public class AuthServiceImpl {
                 .build();
     }
 
+    @Override
     public AuthenticationResponse authenticate(AuthenticationRequest request) {
         authenticationManager.authenticate(
                 new UsernamePasswordAuthenticationToken(

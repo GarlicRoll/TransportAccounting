@@ -3,17 +3,19 @@
     <h1>Authenticate</h1>
     <form class="container">
       <label for="uname"><b>Login</b></label>
-      <input type="text" placeholder="Enter Login" name="uname" required>
+      <input type="text" v-model="login" placeholder="Enter Login" name="login" required>
 
       <label for="psw"><b>Password</b></label>
-      <input type="password" placeholder="Enter Password" name="psw" required>
+      <input type="password" v-model="password" placeholder="Enter Password" name="password" required>
 
-      <button type="submit" class="btn">Login</button>
+      <button type="button" @click="submitForm" class="btn">Login</button>
     </form>
   </div>
 </template>
 
 <script>
+import {url} from "@/main";
+
 export default {
   name: 'AuthenticateView',
   data() {
@@ -30,8 +32,24 @@ export default {
         return;
       }
 
-      // replace with actual API call
+      // API call
       console.log('Logging in with', this.login, this.password);
+      this.$http.post(url + "/auth/authenticate",  {
+            login: this.login,
+            password: this.password
+          },
+          {
+            headers: {
+              "Content-Type" : "application/json"
+            }
+          }
+      ).then(response => {
+        let token = response.data.token;
+        localStorage.setItem('token', token); // not secure
+        this.$router.push('/drivers');
+      }).catch((e) => {
+        console.log(e.toString())
+      })
     },
   },
 };

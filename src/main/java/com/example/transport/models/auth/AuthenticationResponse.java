@@ -1,4 +1,4 @@
-package com.example.transport.models;
+package com.example.transport.models.auth;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
