@@ -1,12 +1,17 @@
 <template>
   <div id="app">
-    <img alt="Vue logo" src="./assets/logo.png">
+    <transition name="fade" mode="out-in">
     <router-view/>
+    </transition>
   </div>
 </template>
 
 <script>
+
 export default {
+  created() {
+    this.i18n.locale = localStorage.getItem('language') || 'en'
+  },
   name: 'App',
   components: {
   }
@@ -21,5 +26,13 @@ export default {
   text-align: center;
   color: #2c3e50;
   margin-top: 60px;
+}
+
+.fade-enter-active, .fade-leave-active {
+  transition: opacity 0.5s;
+}
+
+.fade-enter, .fade-leave-to {
+  opacity: 0;
 }
 </style>

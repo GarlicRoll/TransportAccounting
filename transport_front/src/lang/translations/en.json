@@ -1,3 +1,24 @@
 {
-  "Login": "Login"
+  "Login": "Login",
+  "Enter Login" : "Enter Login",
+  "Password": "Password",
+  "Enter Password": "Enter Password",
+  "Authenticate" : "Authenticate",
+  "Registration" : "Registration",
+  "Logout" : "Logout",
+  "English" : "English",
+  "Russian" : "Russian",
+  "You are not authorized to view this page" : "You are not authorized to view this page",
+
+  "Drivers" : "Drivers",
+  "Add driver" : "Add driver",
+  "Enter Name" : "Enter Name",
+  "Enter Experience" : "Enter Experience",
+  "Enter Class" : "Enter Class",
+  "has been driving for" : "has been driving for",
+  "years" : "years",
+
+  "Buses" : "Buses",
+  "Violations" : "Violations",
+  "Schedule" : "Schedule"
 }

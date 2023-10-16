@@ -4,11 +4,11 @@ import com.example.transport.models.Driver;
 import com.example.transport.services.DriverService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.CrossOrigin;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.*;
 
+import java.rmi.AlreadyBoundException;
 import java.util.List;
 
 
@@ -25,5 +25,12 @@ public class DriverController {
 
         List<Driver> drivers = driverService.getAll();
         return drivers;
+    }
+
+    @PostMapping
+    public ResponseEntity<Driver> create(@RequestBody Driver driver) throws AlreadyBoundException {
+        driverService.saveOrUpdate(driver);
+
+        return new ResponseEntity<>(driver, HttpStatus.valueOf(201));
     }
 }

@@ -1,7 +1,5 @@
 import Vue from 'vue'
 import VueRouter from 'vue-router'
-import {i18n} from "@/main";
-
 
 Vue.use(VueRouter)
 
@@ -25,13 +23,26 @@ const router = new VueRouter({
             name: 'drivers',
             //meta: {layout: 'empty'},
             component: () => import('../components/DriversView.vue')
+        },
+        {
+            path: '/buses',
+            name: 'buses',
+            //meta: {layout: 'empty'},
+            component: () => import('../components/BusesView.vue')
+        },
+        {
+            path: '/violations',
+            name: 'violations',
+            //meta: {layout: 'empty'},
+            component: () => import('../components/ViolationsView.vue')
+        },
+        {
+            path: '/schedule',
+            name: 'schedule',
+            //meta: {layout: 'empty'},
+            component: () => import('../components/ScheduleView.vue')
         }
     ]
-})
-
-router.beforeEach((to, from, next) => {
-    i18n.locale = localStorage.getItem('language') || 'en'
-    return next()
 })
 
 export default router

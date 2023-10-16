@@ -1,4 +1,24 @@
 {
   "Login" : "Логин",
-  "Enter Login" : "Введите логин"
+  "Enter Login" : "Введите логин",
+  "Password": "Пароль",
+  "Enter Password": "Введите пароль",
+  "Authenticate" : "Аутентификация",
+  "Registration" : "Регистрация",
+  "Logout" : "Выйти",
+  "English" : "Английский",
+  "Russian" : "Русский",
+  "You are not authorized to view this page" : "Вы не авторизованы для просмотра этой страницы",
+
+  "Drivers" : "Водители",
+  "Add driver" : "Добавить водителя",
+  "Enter Name" : "Введите имя",
+  "Enter Experience" : "Введите Опыт",
+  "Enter Class" : "Введите Класс",
+  "has been driving for" : "водит уже",
+  "years" : "лет",
+
+  "Buses" : "Автобусы",
+  "Violations" : "Нарушения",
+  "Schedule" : "Расписние"
 }

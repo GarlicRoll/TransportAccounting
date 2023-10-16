@@ -40,14 +40,15 @@ public class SecurityConfiguration {
                         .sessionCreationPolicy(SessionCreationPolicy.STATELESS))
                 .authenticationProvider(authenticationProvider)
                 .addFilterBefore(jwtAuthFilter, UsernamePasswordAuthenticationFilter.class)
-                .cors(Customizer.withDefaults());
+                .cors(Customizer.withDefaults())
+                .requiresChannel(req -> req.anyRequest().requiresSecure());
         return http.build();
     }
 
     @Bean
     public CorsConfigurationSource corsConfigurationSource() {
         CorsConfiguration configuration = new CorsConfiguration();
-        configuration.setAllowedOrigins(Arrays.asList("http://localhost:8081")); // Or the URLs you want to allow
+        configuration.setAllowedOrigins(Arrays.asList("https://localhost:8081")); // Or the URLs you want to allow
         configuration.setAllowedMethods(Arrays.asList("GET", "POST", "PUT", "DELETE", "HEAD"));
         configuration.setAllowCredentials(true);
         configuration.setAllowedHeaders(Arrays.asList("*"));
@@ -59,5 +60,4 @@ public class SecurityConfiguration {
         source.registerCorsConfiguration("/**", configuration.applyPermitDefaultValues());
         return source;
     }
-
 }

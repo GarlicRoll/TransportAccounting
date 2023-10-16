@@ -1,29 +1,39 @@
 <template>
-  <div>
+  <div  class="normal-margin">
     <h1>Register</h1>
+    <transition name="fade">
+      <div v-if="show">
     <form class="container">
       <label for="uname"><b>{{ $t('Login') }}</b></label>
       <input type="text"  :placeholder="$t('Enter Login')"  name="uname" required>
 
       <label for="psw"><b>Password</b></label>
-      <input type="password" placeholder="Enter Password" name="psw" required>
+      <input type="password" :placeholder="$t('Enter Password')" name="psw" required>
 
-      <button type="submit" class="btn">Login</button>
+      <button type="submit" class="btn">{{ $t('Login') }}</button>
     </form>
 
     <select id="lang" @change="changeLanguage($event)">
       <option value="en">English</option>
       <option value="ru">Russian</option>
     </select>
+      </div>
+    </transition>
   </div>
 </template>
 
 <script>
 
 export default {
+  mounted() {
+    setTimeout(() => {
+      this.show = true;
+    }, 500);
+  },
   name: 'RegistrationView',
   data() {
     return {
+      show: false,
       login: '',
       password: '',
     };
@@ -88,4 +98,16 @@ input[type=text]:focus, input[type=password]:focus {
 .container .btn:hover {
   opacity: 1;
 }
+
+.fade-enter-active, .fade-leave-active {
+  transition: opacity .5s;
+}
+.fade-enter, .fade-leave-to {
+  opacity: 0;
+}
+
+.normal-margin {
+  margin: 15pc;
+}
+
 </style>

@@ -1,31 +1,41 @@
 <template>
-  <div>
-    <h1>Authenticate</h1>
-    <form class="container">
-      <label for="uname"><b>Login</b></label>
-      <input type="text" v-model="login" placeholder="Enter Login" name="login" required>
+  <div class="normal-margin">
+    <h1>{{ $t('Authenticate') }}</h1>
+    <transition name="fade">
+      <div v-if="show">
+        <form class="container" >
+          <label for="uname"><b>{{ $t('Login') }}</b></label>
+          <input type="text" v-model="login"  :placeholder="$t('Enter Login')" name="login" required>
 
-      <label for="psw"><b>Password</b></label>
-      <input type="password" v-model="password" placeholder="Enter Password" name="password" required>
+          <label for="psw"><b>{{ $t('Password') }}</b></label>
+          <input type="password" v-model="password" :placeholder="$t('Enter Password')" name="password" required>
 
-      <button type="button" @click="submitForm" class="btn">Login</button>
-    </form>
+          <button type="button" @click="submitForm" class="btn">{{ $t('Login') }}</button>
+        </form>
+      </div>
+    </transition>
   </div>
 </template>
 
 <script>
 import {url} from "@/main";
-
 export default {
   name: 'AuthenticateView',
   data() {
     return {
+      show: false,
       login: '',
       password: '',
     };
   },
+  mounted() {
+    setTimeout(() => {
+      this.show = true;
+    }, 500);
+  },
   methods: {
     submitForm() {
+
       // basic validation, you might want to use a library for this
       if (!this.login || !this.password) {
         alert('Please fill in both fields.');
@@ -45,9 +55,16 @@ export default {
           }
       ).then(response => {
         let token = response.data.token;
-        localStorage.setItem('token', token); // not secure
+        this.$cookies.set('token', token);
+        // localStorage.setItem('token', token); // not secure
+
+        setTimeout(() => {
+          this.show = false;
+        }, 500);
+
         this.$router.push('/drivers');
       }).catch((e) => {
+        alert("Incorrect credits")
         console.log(e.toString())
       })
     },
@@ -96,6 +113,18 @@ input[type=text]:focus, input[type=password]:focus {
 }
 
 .container .btn:hover {
-  opacity: 1;
+  opacity: 0;
+  transition: opacity 0.5s ease-in-out;
 }
+
+.fade-enter-active, .fade-leave-active {
+  transition: opacity .5s;
+}
+.fade-enter, .fade-leave-to {
+  opacity: 0;
+}
+.normal-margin {
+  margin: 15pc;
+}
+
 </style>
