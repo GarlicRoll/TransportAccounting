@@ -12,6 +12,9 @@ export default {
   components : {
     ControlPanel
   },
+  async created() {
+    this.$cookies.set('last_page', "/schedule");
+  },
 }
 </script>
 

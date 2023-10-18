@@ -6,6 +6,7 @@ import VueCookies from 'vue-cookies'
 import VueI18n from "vue-i18n";
 import lang from "@/lang";
 
+
 Vue.use(VueI18n)
 Vue.use(VueCookies)
 

@@ -62,7 +62,8 @@ export default {
           this.show = false;
         }, 500);
 
-        this.$router.push('/drivers');
+
+        this.$router.push(this.$cookies.get('last_page') || "/drivers");
       }).catch((e) => {
         alert("Incorrect credits")
         console.log(e.toString())

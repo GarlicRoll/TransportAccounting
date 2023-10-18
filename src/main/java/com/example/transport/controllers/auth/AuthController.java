@@ -24,8 +24,11 @@ public class AuthController {
 
     @PostMapping("/authenticate")
     public ResponseEntity<AuthenticationResponse> authenticate(
-            @RequestBody AuthenticationRequest request
+            @RequestBody AuthenticationRequest request,
+            @CookieValue(value = "last_page", defaultValue = "none") String lastPage
     ) {
+        System.out.println(lastPage); // Using cookies
+
         return ResponseEntity.ok(authService.authenticate(request));
     }
 

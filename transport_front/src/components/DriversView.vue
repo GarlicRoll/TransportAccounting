@@ -78,6 +78,7 @@ export default {
   async created() {
     //Here you would check the user status
     //const userToken = localStorage.getItem("token")
+    this.$cookies.set('last_page', "/drivers");
     const userToken = this.$cookies.get('token')
 
     if(userToken){ // to not do more requests to the server
