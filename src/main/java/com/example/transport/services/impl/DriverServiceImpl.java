@@ -41,7 +41,7 @@ public class DriverServiceImpl implements DriverService {
     }
 
     @Override
-    public void saveOrUpdate(Driver driver) throws AlreadyBoundException {
+    public Driver saveOrUpdate(Driver driver) throws AlreadyBoundException {
         List<Driver> drivers = getAll();
 
         // Проверка, прикреплён ли уже автобус к водителю (если его хотят прикрепить)
@@ -58,6 +58,7 @@ public class DriverServiceImpl implements DriverService {
         // Если водителя не пытаются прикрепить к двум автобуса
         if (!driverAlreadyConnected) {
             driverRepository.save(driver);
+            return driver;
         } else {
             throw new AlreadyBoundException("Bus already bound. Id: " + driver.getBus().getId());
         }

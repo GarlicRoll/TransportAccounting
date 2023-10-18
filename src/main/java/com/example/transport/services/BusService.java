@@ -8,6 +8,6 @@ import java.util.List;
 public interface BusService {
     List<Bus> getAll();
     Bus getById(Integer id);
-    void saveOrUpdate(Bus bus) throws AlreadyBoundException;
+    Bus saveOrUpdate(Bus bus) throws AlreadyBoundException;
     void deleteById(Integer id);
 }

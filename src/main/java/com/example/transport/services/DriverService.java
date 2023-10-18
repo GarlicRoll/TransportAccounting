@@ -8,6 +8,6 @@ import java.util.List;
 public interface DriverService {
     List<Driver> getAll();
     Driver getById(Integer id);
-    void saveOrUpdate(Driver driver) throws AlreadyBoundException;
+    Driver saveOrUpdate(Driver driver) throws AlreadyBoundException;
     void deleteById(Integer id);
 }
