@@ -1,16 +1,16 @@
 <template>
   <div  class="normal-margin">
-    <h1>Register</h1>
+    <h1>{{ $t('Register') }}</h1>
     <transition name="fade">
       <div v-if="show">
     <form class="container">
       <label for="uname"><b>{{ $t('Login') }}</b></label>
-      <input type="text"  :placeholder="$t('Enter Login')"  name="uname" required>
+      <input type="text"   v-model="login" :placeholder="$t('Enter Login')"  name="login" required>
 
-      <label for="psw"><b>Password</b></label>
-      <input type="password" :placeholder="$t('Enter Password')" name="psw" required>
+      <label for="psw"><b>{{ $t('Password') }}</b></label>
+      <input type="password"  v-model="password" :placeholder="$t('Enter Password')" name="password" required>
 
-      <button type="submit" class="btn">{{ $t('Login') }}</button>
+      <button type="button" @click="submitForm" class="btn">{{ $t('Login') }}</button>
     </form>
 
     <select id="lang" @change="changeLanguage($event)">
@@ -23,7 +23,7 @@
 </template>
 
 <script>
-
+import {url} from "@/main";
 export default {
   mounted() {
     setTimeout(() => {
@@ -47,6 +47,40 @@ export default {
       }
       // replace with actual API call
       console.log('Logging in with', this.login, this.password);
+      // basic validation, you might want to use a library for this
+      if (!this.login || !this.password) {
+        alert('Please fill in both fields.');
+        return;
+      }
+
+      this.$cookies.set('login', this.login);
+      // API call
+      console.log('Logging in with', this.login, this.password);
+      this.$http.post(url + "/auth/register",  {
+            login: this.login,
+            password: this.password
+          },
+          {
+            headers: {
+              "Content-Type" : "application/json"
+            }
+          }
+      ).then(response => {
+        let token = response.data.token;
+        this.$cookies.set('token', token);
+
+        // localStorage.setItem('token', token); // not secure
+
+        setTimeout(() => {
+          this.show = false;
+        }, 500);
+
+
+        this.$router.push(this.$cookies.get('last_page') || "/drivers");
+      }).catch((e) => {
+        alert("Incorrect credits")
+        console.log(e.toString())
+      })
     },
     changeLanguage(event) {
       this.$i18n.locale = event.target.value;

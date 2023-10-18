@@ -8,4 +8,8 @@ public interface AuthService {
 
     AuthenticationResponse register(RegisterRequest request);
     AuthenticationResponse authenticate(AuthenticationRequest request);
+
+    String getLastPage(String login);
+
+    String setLastPage(String login, String lastPage);
 }

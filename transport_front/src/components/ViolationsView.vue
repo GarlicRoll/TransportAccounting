@@ -13,7 +13,7 @@ export default {
     ControlPanel
   },
   async created() {
-    this.$cookies.set('last_page', "/violations");
+    this.$cookies.set('last_page', "violations");
   },
 }
 </script>

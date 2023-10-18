@@ -30,7 +30,6 @@ public class DriverController {
     @PostMapping
     public ResponseEntity<Driver> create(@RequestBody Driver driver) throws AlreadyBoundException {
         driverService.saveOrUpdate(driver);
-
         return new ResponseEntity<>(driver, HttpStatus.valueOf(201));
     }
 }

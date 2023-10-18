@@ -15,27 +15,29 @@ import java.util.List;
 @AllArgsConstructor
 @Entity
 public class User implements UserDetails {
+    @Getter
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
 
+    @Getter
     private String login;
 
+    @Getter
     private String password;
+
+    public void setLastPage(String lastPage) {
+        this.lastPage = lastPage;
+    }
+
+    @Getter
+    private String lastPage;
 
     @Enumerated(EnumType.STRING)
     private Role role;
 
-    public Integer getId() {
-        return id;
-    }
-
     public void setId(Integer id) {
         this.id = id;
-    }
-
-    public String getLogin() {
-        return login;
     }
 
     public void setLogin(String login) {
@@ -45,10 +47,6 @@ public class User implements UserDetails {
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
         return List.of(new SimpleGrantedAuthority(role.name()));
-    }
-
-    public String getPassword() {
-        return password;
     }
 
     @Override

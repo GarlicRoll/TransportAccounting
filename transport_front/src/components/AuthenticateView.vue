@@ -42,6 +42,7 @@ export default {
         return;
       }
 
+      this.$cookies.set('login', this.login);
       // API call
       console.log('Logging in with', this.login, this.password);
       this.$http.post(url + "/auth/authenticate",  {
@@ -56,14 +57,15 @@ export default {
       ).then(response => {
         let token = response.data.token;
         this.$cookies.set('token', token);
+
         // localStorage.setItem('token', token); // not secure
 
         setTimeout(() => {
           this.show = false;
         }, 500);
 
-
-        this.$router.push(this.$cookies.get('last_page') || "/drivers");
+        console.log("/" + this.$cookies.get('last_page'))
+        this.$router.push("/" + (this.$cookies.get('last_page') || "drivers"));
       }).catch((e) => {
         alert("Incorrect credits")
         console.log(e.toString())

@@ -15,9 +15,12 @@
 </template>
 
 <script>
+import {url} from "@/main";
+
 export default {
   data() {
     return {
+      login: "",
       selectedLanguage: localStorage.getItem('language') || 'en', // Default selected language
       languages: [
         {code: 'en', name: 'English'},
@@ -27,9 +30,20 @@ export default {
   },
   methods: {
     logout() {
-        this.$cookies.remove('token')
-        // localStorage.setItem('token', '');
-        this.$router.push('/auth');
+      this.login = this.$cookies.get('login');
+        if (this.login === undefined || this.login == null) {
+          this.$cookies.remove('token')
+          this.$router.push('/auth');
+        } else {
+          // localStorage.setItem('token', '');
+          this.$http.post(url + "/auth/logOut", {
+                login: this.login,
+              }
+          ).then(() => {
+            this.$cookies.remove('token')
+            this.$router.push('/auth');
+          })
+        }
     },
     changeLanguage() {
       this.$i18n.locale = this.selectedLanguage;
